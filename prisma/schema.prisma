@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Solicitacao {
+  id Int @id @default(autoincrement())
+  tipoSolicitacao Int     
+  
+  local           Local   @relation(fields: [localId], references: [id])
+  localId         Int
+  
+  solicitante     String
+  equipamento     String
+  
+  cadastrante     Usuario @relation("cadastrantes", fields: [cadastranteId], references: [id])
+  cadastranteId   Int
+  
+  problema        String
+
+  situacao Situacao @relation(fields: [situacaoId], references: [id])
+  situacaoId Int
+
+  inicioAtendimento DateTime @default(now())
+  fimAtendimento DateTime @default(now())
+
+  atendente Usuario @relation("atendentes", fields: [atendenteId], references: [id])
+  atendenteId Int
+
+  atendenteDeTerceiro Terceiro @relation("atendentesTerceiro", fields: [atendenteDeTerceiroId], references: [id])
+  atendenteDeTerceiroId Int
+
+  encerrante Usuario @relation("encerrantes", fields: [encerranteId], references: [id])
+  encerranteId Int
+
+  encerrantesDeTerceiro Terceiro @relation("encerrantesTerceiro", fields: [encerrantesDeTerceiroId], references: [id])
+  encerrantesDeTerceiroId Int
+}
+
+model TipoSolicitacao {
+  id Int @id @default(autoincrement())
+  nome String @unique
+}
+
+model Local {
+  id          Int           @id @default(autoincrement())
+  nome        String        @unique
+  Solicitacao Solicitacao[]
+}
+
+model Usuario {
+  id          Int           @id @default(autoincrement())
+  usuario     String
+
+  cadastrantes Solicitacao[] @relation("cadastrantes")
+  atendentes Solicitacao[] @relation("atendentes")
+  encerrantes Solicitacao[] @relation("encerrantes")
+}
+
+model Situacao {
+  id Int @id @default(autoincrement())
+  nome String @unique
+  Solicitacao Solicitacao[]
+}
+
+model Terceiro {
+  id Int @id @default(autoincrement())
+  nome String @unique
+  atendentesTerceiro Solicitacao[] @relation("atendentesTerceiro")
+  encerrantesTerceiro Solicitacao[] @relation("encerrantesTerceiro")
+}

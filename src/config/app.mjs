@@ -1,16 +1,17 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import solicitacaoRouter from './routes/solicitacaoController.mjs';
+import solicitacaoRouter from '../routes/solicitacaoRoute.mjs';
 import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
-app.use(cors);
+app.use(cors());
+app.use(express.json());
 app.use(solicitacaoRouter)
 
 app.get('/', (req, res) => {
-    return res.status(200).send("Test route");
+    return res.status(200).json({ "message": "test route" });
 });
 
 export default app;

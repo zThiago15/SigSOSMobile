@@ -1,0 +1,30 @@
+{
+    "solicitacoes": {
+        "data": [
+            {
+                "tipoSolicitacao": "Suporte ao Usuário",
+                "local": "Almoxarifado",
+                "solicitante": "Aguinaldo",
+                "equipamento": "semegbc697",
+                "cadastrante": "Thiago",
+                "problema": ""
+            },
+            {
+                "tipoSolicitacao": "Suporte a Unidade",
+                "local": "",
+                "solicitante": "",
+                "equipamento": "",
+                "cadastrante": "",
+                "problema": ""
+            },
+            {
+                "tipoSolicitacao": "Programação",
+                "local": "",
+                "solicitante": "",
+                "equipamento": "",
+                "cadastrante": "",
+                "problema": ""
+            }
+        ]
+    }
+}
