@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/config/server.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./src/config/server.mjs --ignore ./src/__tests__",
+    "start": "node ./src/config/server.mjs",
+    "test": "jest --–detectOpenHandles –forceExit"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +16,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^5.10.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "supertest": "^6.3.4"
   }
 }
