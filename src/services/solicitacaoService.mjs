@@ -12,7 +12,6 @@ const allSolicitacoesService = async () => {
     } catch(err) {
         console.log(err);
     }
-    console.log(solicitacoes);
 
     return solicitacoes || solicitacoesData;
 }
@@ -29,21 +28,24 @@ const createService = async (data) => {
     // local memory
     solicitacoesData.push(data);
 
-    return;
+    return solicitacoesData;
 }
 
 const modifyService = async (data) => {
     
     // database
-    await prisma.solicitacao.update({
-        data,
-        where: { 
-            cadastrante: data.cadastrante,
-            equipamento: data.equipamento,
-            problema: data.problema
-         }
-    })
-
+    try {
+        await prisma.solicitacao.update({
+            data,
+            where: { 
+                cadastrante: data.cadastrante,
+                equipamento: data.equipamento,
+                problema: data.problema
+            }
+        })
+    } catch(err) {
+        console.error(err);
+    }
 
     // local memory
     solicitacoesData.forEach((item, index) => {
